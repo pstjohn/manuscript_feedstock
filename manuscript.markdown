@@ -23,4 +23,12 @@ $$f(x) = x^2$$ {#eq:equation}
 
 ![**A test figure title.** Additional descriptions.](figs/svg-renderer-test){#fig:testfig}
 
+  Right     Left     Center     Default
+-------     ------ ----------   -------
+     12     12        12            12
+    123     123       123          123
+      1     1          1             1
+
+ : A table with caption.
+
 # References

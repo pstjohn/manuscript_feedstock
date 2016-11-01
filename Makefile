@@ -17,10 +17,10 @@ PANDOC=pandoc -F pandoc-crossref -F pandoc-citeproc
 INKSCAPE=inkscape
 
 # Build targets
-all: output/document_ms.pdf output/document_ms.docx output/document_ms.html
-pdf: output/document_ms.pdf
-docx: output/document_ms.docx
-html: output/document_ms.html
+all: output/manuscript.pdf output/manuscript.docx output/manuscript.html
+pdf: output/manuscript.pdf
+docx: output/manuscript.docx
+html: output/manuscript.html
 
 
 clean:
@@ -34,11 +34,11 @@ figs/%.png: figs/%.svg
 	$(DOCKER_CMD) $(DOCKER_IMG) $(INKSCAPE) -f $< --export-png=$@ --export-dpi=200
 
 # Build manuscript files
-output/document_ms.docx: $(MARKDOWN) $(BIBFILE) $(FIGURES_PNG) $(CSLFILE)
+output/manuscript.docx: $(MARKDOWN) $(BIBFILE) $(FIGURES_PNG) $(CSLFILE)
 	$(DOCKER_CMD) $(DOCKER_IMG) $(PANDOC) --default-image-extension=png $(MARKDOWN) -o $@
 
-output/document_ms.pdf: $(MARKDOWN) $(BIBFILE) $(FIGURES_PDF) latex_style.sty $(CSLFILE)
+output/manuscript.pdf: $(MARKDOWN) $(BIBFILE) $(FIGURES_PDF) latex_style.sty $(CSLFILE)
 	$(DOCKER_CMD) $(DOCKER_IMG) $(PANDOC) --default-image-extension=pdf -H latex_style.sty -V subparagraph $(MARKDOWN) -o $@
 
-output/document_ms.html: $(MARKDOWN) $(BIBFILE) $(FIGURES_PDF) latex_style.sty $(CSLFILE)
+output/manuscript.html: $(MARKDOWN) $(BIBFILE) $(FIGURES_PDF) html_style.css $(CSLFILE)
 	$(DOCKER_CMD) $(DOCKER_IMG) $(PANDOC) --default-image-extension=svg --self-contained -c html_style.css $(MARKDOWN) -o $@
